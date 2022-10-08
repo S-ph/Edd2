@@ -26,8 +26,6 @@ public class Pilha {
     }
 
     public void voltarPagina() {
-        Pagina c = null;
-
         if (!this.vazia()) {
             topo--;
             System.out.println("retornando a pagina anterior");
