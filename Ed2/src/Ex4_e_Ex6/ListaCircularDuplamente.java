@@ -1,32 +1,33 @@
-public class ListaCircularDuplamente extends ListaDuplamente
-{
+package Ex4_e_Ex6;
 
-    //Exercicio 04
+public class ListaCircularDuplamente extends ListaDuplamente {
 
-    public int noDOMeio(){
+    // Exercicio 04
+
+    public int noDOMeio() {
         Elo p;
         Elo q = prim.ant;
 
-        for (p = prim ; p != q; p = p.prox){
+        for (p = prim; p != q; p = p.prox) {
             q = q.ant;
-            if (p == q )
+            if (p == q)
                 break;
         }
         return p.dado;
     }
+
     /* Imprime todos os elementos da lista. */
-    public void imprime()
-    {
+    @Override
+    public void imprime() {
         Elo p;
         System.out.println("Elementos da lista:");
 
-        if(prim == null)
+        if (prim == null)
             return;
 
         p = prim;
 
-        do
-        {
+        do {
             System.out.print(p.dado + " ");
             p = p.prox;
 
@@ -36,18 +37,17 @@ public class ListaCircularDuplamente extends ListaDuplamente
     }
 
     /* Imprime todos os elementos da lista em ordem reversa. */
-    public void imprimeReversa()
-    {
+    @Override
+    public void imprimeReversa() {
         Elo p;
         System.out.println("Elementos da lista em ordem reversa:");
 
-        if(prim == null)
+        if (prim == null)
             return;
 
         p = prim.ant;
 
-        do
-        {
+        do {
             System.out.print(p.dado + ' ');
             p = p.ant;
 
@@ -57,107 +57,103 @@ public class ListaCircularDuplamente extends ListaDuplamente
     }
 
     /* Remove da lista o primeiro elemento com valor igual a "elem". Retorna true se removeu. */
-    public boolean remove(int elem)
-    {
+    @Override
+    public boolean remove(int elem) {
         Elo p = null;
 
-        if (prim == null) return false;
+        if (prim == null)
+            return false;
 
-        for (p = prim; ((p.prox != prim ) && (p.dado!=elem)); p = p.prox);
+        for (p = prim; ((p.prox != prim) && (p.dado != elem)); p = p.prox)
+            ;
 
         /* Achou */
-        if (p.dado == elem )
-        {
+        if (p.dado == elem) {
             /* É o primeiro */
-            if (p == prim)
-            {
+            if (p == prim) {
                 /* É o único */
-                if (prim == prim.prox)
-                {
+                if (prim == prim.prox) {
                     prim = null;
-                }
-                else
-                {
+                } else {
                     p.ant.prox = p.prox;
                     prim = prim.prox;
                     p.prox.ant = p.ant;
                 }
-            }
-            else
-            {
+            } else {
                 /* No meio */
                 p.ant.prox = p.prox;
                 p.prox.ant = p.ant;
             }
 
-            /* Remove a última referência para o elo a ser removido. Dessa forma,
-             * o Garbage Collector irá liberar essa memória. */
+            /*
+             * Remove a última referência para o elo a ser removido. Dessa forma, o Garbage Collector irá liberar essa memória.
+             */
             p = null;
             return true;
-        }
-        else
+        } else
             return false;
     }
 
     /* Insere elemento no fim da lista. */
-    public void insere(int novo)
-    {
+    @Override
+    public void insere(int novo) {
         Elo q, ult;
         q = new Elo(novo);
 
-        if (prim != null)
-        {
+        if (prim != null) {
             ult = prim.ant;
             ult.prox = q;
             q.ant = ult;
             q.prox = prim;
             prim.ant = q;
-        }
-        else
-        {
+        } else {
             prim = q;
             prim.prox = q;
-            prim.ant  = q;
+            prim.ant = q;
         }
     }
 
     /* Resolução da questão 4 da lista auxiliar de Lista Encadeada. */
     public static ListaCircularDuplamente concatena(ListaCircularDuplamente l1,
-                                                    ListaCircularDuplamente l2)
-    {
+            ListaCircularDuplamente l2) {
         Elo p;
 
         /* Verifica se a lista l1 é vazia. */
-        if(l1.prim == null)
-        {
+        if (l1.prim == null) {
             l1.prim = l2.prim;
-        }
-        else
-        {
-            /* Primeiramente, precisamos obter o último elo da lista l1, isto é,
-             * o elo cujo próximo é o "prim". */
-            for(p = l1.prim; p.prox != l1.prim; p = p.prox);
+        } else {
+            /*
+             * Primeiramente, precisamos obter o último elo da lista l1, isto é, o elo cujo próximo é o "prim".
+             */
+            for (p = l1.prim; p.prox != l1.prim; p = p.prox)
+                ;
 
-            /* Faz o "prox" do último elemento da lista l1, apontado por "p",
-             * apontar para o "prim" da lista l2. */
+            /*
+             * Faz o "prox" do último elemento da lista l1, apontado por "p", apontar para o "prim" da lista l2.
+             */
             p.prox = l2.prim;
 
-            /* Faz o "ant" do "prim" da lista l2 apontar para o último elemento da
-             * lista l1, apontado por "p". */
+            /*
+             * Faz o "ant" do "prim" da lista l2 apontar para o último elemento da lista l1, apontado por "p".
+             */
             l2.prim.ant = p;
         }
 
-        /* Anda até o final da "nova" lista. Note que o "prox" do último elo ainda
-         * continua apontando para "l2.prim". */
-        for(p = l1.prim; p.prox != l2.prim; p = p.prox);
+        /*
+         * Anda até o final da "nova" lista. Note que o "prox" do último elo ainda continua apontando para "l2.prim".
+         */
+        for (p = l1.prim; p.prox != l2.prim; p = p.prox)
+            ;
 
-        /* Agora ajustamos "prox" e "ant" do primeiro e último elos,
-         * respectivamente. */
+        /*
+         * Agora ajustamos "prox" e "ant" do primeiro e último elos, respectivamente.
+         */
         l1.prim.ant = p;
         p.prox = l1.prim;
 
-        /* Nesse ponto, os elementos de l2 já estão encadeados ao final de l1,
-         * como desejado. Assim, vamos deixar a lista l2 vazia. */
+        /*
+         * Nesse ponto, os elementos de l2 já estão encadeados ao final de l1, como desejado. Assim, vamos deixar a lista l2 vazia.
+         */
         l2.prim = null;
 
         return l1;

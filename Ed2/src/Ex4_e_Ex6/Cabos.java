@@ -1,3 +1,5 @@
+package Ex4_e_Ex6;
+
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -6,11 +8,11 @@ import java.util.PriorityQueue;
 public class Cabos {
     private PriorityQueue<Integer> filaCabos;
 
-    //recebe uma lista de cabos pelo seu comprimento
-    public Cabos (List<Integer> listaCabos){
+    // recebe uma lista de cabos pelo seu comprimento
+    public Cabos(List<Integer> listaCabos) {
         filaCabos = new PriorityQueue<>();
 
-        for (Integer cabo : listaCabos){
+        for (Integer cabo : listaCabos) {
             this.filaCabos.add(cabo);
         }
     }
@@ -19,12 +21,12 @@ public class Cabos {
         return filaCabos;
     }
 
-    public Integer menorCustoDeConexao (int distanciaConexao){
-        Integer somaCabos  = filaCabos.poll();
+    public Integer menorCustoDeConexao(int distanciaConexao) {
+        Integer somaCabos = filaCabos.poll();
         if (distanciaConexao <= somaCabos)
             return 0;
-        while (distanciaConexao > somaCabos){
-            if (filaCabos.size() == 0){
+        while (distanciaConexao > somaCabos) {
+            if (filaCabos.size() == 0) {
                 System.out.println("Cabos esgotados");
                 return -1;
             }

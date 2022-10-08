@@ -1,9 +1,9 @@
-package filaCircularSimples;
+package Ex7;
 
 public class Musica {
     private String nome;
 
-    public Musica(String nome){
+    public Musica(String nome) {
         this.nome = nome;
     }
 
@@ -11,5 +11,4 @@ public class Musica {
         return nome;
     }
 
-    
 }
